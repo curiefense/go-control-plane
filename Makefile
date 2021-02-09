@@ -81,5 +81,10 @@ integration.xds.mux.v3: $(BINDIR)/test $(BINDIR)/upstream
 $(BINDIR)/example:
 	@go build -race -o $@ internal/example/main/main.go
 
+.PHONY: $(BINDIR)/waf waf
+
+$(BINDIR)/waf:
+	@go build -race -o $@ internal/waf/main.go
+
 example: $(BINDIR)/example
 	@build/example.sh

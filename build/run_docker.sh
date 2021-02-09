@@ -12,4 +12,4 @@ if [ -z "${IMAGE_TAG}" ]; then
   exit 1
 fi
 
-docker run -v $(pwd):/go-control-plane "${IMAGE_HUB}":"${IMAGE_TAG}" $*
+sudo docker run -v $(pwd):/go-control-plane "${IMAGE_HUB}":"${IMAGE_TAG}" $*
