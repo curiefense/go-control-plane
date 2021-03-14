@@ -181,7 +181,6 @@ func sendResponse(stream es_extension_v3.ExtensionConfigDiscoveryService_StreamE
 }
 
 func (s *ECDSServer) StreamExtensionConfigs(stream es_extension_v3.ExtensionConfigDiscoveryService_StreamExtensionConfigsServer) error {
-	log.Printf("StreamExtensionConfigs")
   nonce := 0
   in, err := stream.Recv()
   if err == io.EOF {
@@ -267,6 +266,7 @@ func newConfHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+  log.Print("Configuration successfully updated!")
 	g_config.version = version
 	g_config.config = gconf
 	g_config.newConf.Broadcast()
@@ -282,9 +282,10 @@ func main() {
 	g_config.version = version
 
 	// HTTP ECDSServer to push configurations
-	log.Print("starting HTTP ECDSServer...\n")
+	port_http := flag.Int("port_http", 18001, "HTTP port")
+	log.Printf("starting HTTP ECDSServer on port %d...\n", *port_http)
 	http.HandleFunc("/", newConfHandler)
-	go http.ListenAndServe("127.0.0.1:18001", nil)
+	go http.ListenAndServe(fmt.Sprintf("127.0.0.1:%d", *port_http), nil)
 
 	// ECDS gRPC ECDSServer
 	port := flag.Int("port", 18000, "gRPC port")
@@ -300,7 +301,7 @@ func main() {
 
 	es_extension_v3.RegisterExtensionConfigDiscoveryServiceServer(gs, &ECDSServer{})
 
-	log.Printf("starting gRPC ECDSServer on: %d\n", *port)
+	log.Printf("starting gRPC ECDSServer on port %d...\n", *port)
 
 	gs.Serve(lis)
 }

@@ -509,6 +509,520 @@ var _ interface {
 	ErrorName() string
 } = WAFSignatureValidationError{}
 
+// Validate checks the field values on WAFRuleEntryMatchMap with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *WAFRuleEntryMatchMap) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Field
+
+	// no validation rules for Key
+
+	return nil
+}
+
+// WAFRuleEntryMatchMapValidationError is the validation error returned by
+// WAFRuleEntryMatchMap.Validate if the designated constraints aren't met.
+type WAFRuleEntryMatchMapValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WAFRuleEntryMatchMapValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WAFRuleEntryMatchMapValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WAFRuleEntryMatchMapValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WAFRuleEntryMatchMapValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WAFRuleEntryMatchMapValidationError) ErrorName() string {
+	return "WAFRuleEntryMatchMapValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WAFRuleEntryMatchMapValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWAFRuleEntryMatchMap.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WAFRuleEntryMatchMapValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WAFRuleEntryMatchMapValidationError{}
+
+// Validate checks the field values on WAFRuleEntryMatchValue with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, an error is returned.
+func (m *WAFRuleEntryMatchValue) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Field
+
+	return nil
+}
+
+// WAFRuleEntryMatchValueValidationError is the validation error returned by
+// WAFRuleEntryMatchValue.Validate if the designated constraints aren't met.
+type WAFRuleEntryMatchValueValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WAFRuleEntryMatchValueValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WAFRuleEntryMatchValueValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WAFRuleEntryMatchValueValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WAFRuleEntryMatchValueValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WAFRuleEntryMatchValueValidationError) ErrorName() string {
+	return "WAFRuleEntryMatchValueValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e WAFRuleEntryMatchValueValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWAFRuleEntryMatchValue.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WAFRuleEntryMatchValueValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WAFRuleEntryMatchValueValidationError{}
+
+// Validate checks the field values on WAFRuleEntry with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *WAFRuleEntry) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Description
+
+	// no validation rules for Pattern
+
+	switch m.Entry.(type) {
+
+	case *WAFRuleEntry_Value:
+
+		if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WAFRuleEntryValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *WAFRuleEntry_Map:
+
+		if v, ok := interface{}(m.GetMap()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WAFRuleEntryValidationError{
+					field:  "Map",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		return WAFRuleEntryValidationError{
+			field:  "Entry",
+			reason: "value is required",
+		}
+
+	}
+
+	return nil
+}
+
+// WAFRuleEntryValidationError is the validation error returned by
+// WAFRuleEntry.Validate if the designated constraints aren't met.
+type WAFRuleEntryValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WAFRuleEntryValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WAFRuleEntryValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WAFRuleEntryValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WAFRuleEntryValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WAFRuleEntryValidationError) ErrorName() string { return "WAFRuleEntryValidationError" }
+
+// Error satisfies the builtin error interface
+func (e WAFRuleEntryValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWAFRuleEntry.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WAFRuleEntryValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WAFRuleEntryValidationError{}
+
+// Validate checks the field values on WAFRuleSection with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *WAFRuleSection) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Relation
+
+	for idx, item := range m.GetEntries() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WAFRuleSectionValidationError{
+					field:  fmt.Sprintf("Entries[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// WAFRuleSectionValidationError is the validation error returned by
+// WAFRuleSection.Validate if the designated constraints aren't met.
+type WAFRuleSectionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WAFRuleSectionValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WAFRuleSectionValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WAFRuleSectionValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WAFRuleSectionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WAFRuleSectionValidationError) ErrorName() string { return "WAFRuleSectionValidationError" }
+
+// Error satisfies the builtin error interface
+func (e WAFRuleSectionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWAFRuleSection.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WAFRuleSectionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WAFRuleSectionValidationError{}
+
+// Validate checks the field values on WAFRule with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *WAFRule) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Relation
+
+	for idx, item := range m.GetSections() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WAFRuleValidationError{
+					field:  fmt.Sprintf("Sections[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// WAFRuleValidationError is the validation error returned by WAFRule.Validate
+// if the designated constraints aren't met.
+type WAFRuleValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WAFRuleValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WAFRuleValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WAFRuleValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WAFRuleValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WAFRuleValidationError) ErrorName() string { return "WAFRuleValidationError" }
+
+// Error satisfies the builtin error interface
+func (e WAFRuleValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWAFRule.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WAFRuleValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WAFRuleValidationError{}
+
+// Validate checks the field values on WAFTagRule with the rules defined in the
+// proto definition for this message. If any rules are violated, an error is returned.
+func (m *WAFTagRule) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Id
+
+	// no validation rules for Name
+
+	// no validation rules for Source
+
+	if v, ok := interface{}(m.GetMdate()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return WAFTagRuleValidationError{
+				field:  "Mdate",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Notes
+
+	// no validation rules for Active
+
+	if len(m.GetTags()) < 1 {
+		return WAFTagRuleValidationError{
+			field:  "Tags",
+			reason: "value must contain at least 1 item(s)",
+		}
+	}
+
+	if m.GetRule() == nil {
+		return WAFTagRuleValidationError{
+			field:  "Rule",
+			reason: "value is required",
+		}
+	}
+
+	if v, ok := interface{}(m.GetRule()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return WAFTagRuleValidationError{
+				field:  "Rule",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	return nil
+}
+
+// WAFTagRuleValidationError is the validation error returned by
+// WAFTagRule.Validate if the designated constraints aren't met.
+type WAFTagRuleValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e WAFTagRuleValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e WAFTagRuleValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e WAFTagRuleValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e WAFTagRuleValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e WAFTagRuleValidationError) ErrorName() string { return "WAFTagRuleValidationError" }
+
+// Error satisfies the builtin error interface
+func (e WAFTagRuleValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sWAFTagRule.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = WAFTagRuleValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = WAFTagRuleValidationError{}
+
 // Validate checks the field values on WAF with the rules defined in the proto
 // definition for this message. If any rules are violated, an error is returned.
 func (m *WAF) Validate() error {
@@ -523,6 +1037,21 @@ func (m *WAF) Validate() error {
 			if err := v.Validate(); err != nil {
 				return WAFValidationError{
 					field:  fmt.Sprintf("Signatures[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	for idx, item := range m.GetTagrules() {
+		_, _ = idx, item
+
+		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return WAFValidationError{
+					field:  fmt.Sprintf("Tagrules[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
